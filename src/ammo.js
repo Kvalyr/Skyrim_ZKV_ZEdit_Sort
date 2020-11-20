@@ -9,7 +9,7 @@ exports.getAmmoPrefix = function (item, oldName, helpers) {
         prefix = "Arrow";
     }
     else if (oldName.includes("Bolt")) {
-        return "Bolt"
+        prefix = "Bolt"
     }
     if (isEmpty(prefix) || oldName.startsWith(prefix)) {
         return "";

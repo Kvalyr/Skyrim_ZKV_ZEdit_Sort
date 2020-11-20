@@ -1,6 +1,6 @@
 # ZKV_Sort
 
-A Skyrim zEdit patcher that creates a plugin file from loaded plugins with record names (items, spells, etc.) modified for sorting in the inventory.
+A Skyrim zEdit patcher that creates a plugin file from other loaded plugins with record names (items, spells, etc.) modified for sorting in the inventory.
 For example, the spell `Flames` can become `Destruction I: Flames`; or `Iron Sword` will be renamed to `Sword (1h): Iron`.
 
 This produces a result similar to popular sorting mods such as [Valdacil's Item Sorting](https://www.nexusmods.com/skyrimspecialedition/mods/5224) or _Zhior's_ [Enhanced Better Sorting](https://www.nexusmods.com/skyrim/mods/66797/?) with the major advantage of not requiring a multitude of patches to account for any other mod that adds or changes items.
