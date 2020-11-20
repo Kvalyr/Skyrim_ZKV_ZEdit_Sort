@@ -5,7 +5,7 @@ function isEmpty(str) {
 
 exports.getIngestiblePrefix = function (item, oldName, helpers) {
     let prefix = "";
-    if (oldName.startsWith("Drink -") || oldName.startsWith("Food -")){
+    if (oldName.startsWith("Drink -") || oldName.startsWith("Food -")) {
         // Early return to prevent hassle from mis-classified items in VitalityMode
         return "fixSep";
     }

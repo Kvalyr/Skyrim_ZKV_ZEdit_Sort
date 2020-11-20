@@ -8,7 +8,7 @@ registerPatcher({
         label: 'ZKV_Sort Settings',
         templateUrl: `${patcherUrl}/partials/settings.html`,
         defaultSettings: {
-            patchFileName: 'ZKV_ZEdit_Sort.esp',
+            patchFileName: 'ZKV_Sort.esp',
         },
     },
     execute: (patchFile, helpers, settings, locals) => ({
@@ -23,12 +23,5 @@ registerPatcher({
             patcher.spellTomeRenamer,
             patcher.miscRenamer,
         ],
-        finalize: function () {
-            let diff = new Date() - locals.date;
-            let seconds = Math.round(diff / 1000);
-            let minutes = Math.floor(seconds / 60);
-            helpers.logMessage('Elapsed minutes:' + minutes);
-            helpers.logMessage('Elapsed seconds:' + (seconds - (minutes * 60)));
-        }
     })
 });

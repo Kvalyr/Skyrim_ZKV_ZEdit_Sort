@@ -16,7 +16,7 @@ exports.getMiscPrefix = function (item, oldName, helpers) {
         return "";
     }
 
-    // TODO: Use patcher systemn's filter properly instead
+    // TODO: Use patcher system's filter properly instead
     if (
         !(
             xelib.HasKeyword(item, 'VendorItemOreIngot') ||
