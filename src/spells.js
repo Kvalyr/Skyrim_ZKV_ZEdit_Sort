@@ -23,39 +23,39 @@ exports.getSpellPrefix = function (item, oldName, helpers) {
     let spellDataHandle = xelib.GetElement(item, "SPIT");
     let halfCostPerk = xelib.GetValue(spellDataHandle, "Half-cost Perk");
 
-    if(xelib.EditorID(item) == "AbDragon"){
+    if (xelib.EditorID(item) == "AbDragon") {
         return "";
     }
 
-    if(halfCostPerk.includes("Novice")){
+    if (halfCostPerk.includes("Novice")) {
         masteryLevel = masteryLevel1
     }
-    else if(halfCostPerk.includes("Apprentice")){
+    else if (halfCostPerk.includes("Apprentice")) {
         masteryLevel = masteryLevel2
     }
-    else if(halfCostPerk.includes("Adept")){
+    else if (halfCostPerk.includes("Adept")) {
         masteryLevel = masteryLevel3
     }
-    else if(halfCostPerk.includes("Expert")){
+    else if (halfCostPerk.includes("Expert")) {
         masteryLevel = masteryLevel4
     }
-    else if(halfCostPerk.includes("Master")){
+    else if (halfCostPerk.includes("Master")) {
         masteryLevel = masteryLevel5
     }
 
-    if(halfCostPerk.includes("Alteration")){
+    if (halfCostPerk.includes("Alteration")) {
         prefix = alterationPrefix
     }
-    else if(halfCostPerk.includes("Conjuration")){
+    else if (halfCostPerk.includes("Conjuration")) {
         prefix = conjurationPrefix
     }
-    else if(halfCostPerk.includes("Destruction")){
+    else if (halfCostPerk.includes("Destruction")) {
         prefix = destructionPrefix
     }
-    else if(halfCostPerk.includes("Illusion")){
+    else if (halfCostPerk.includes("Illusion")) {
         prefix = illusionPrefix
     }
-    else if(halfCostPerk.includes("Restoration")){
+    else if (halfCostPerk.includes("Restoration")) {
         prefix = restorationPrefix
     }
 
@@ -71,23 +71,23 @@ exports.getSpellTomePrefix = function (item, oldName, helpers) {
 
     let inventoryArt = xelib.GetValue(item, "INAM");
 
-    if(xelib.EditorID(item) == "AbDragon"){
+    if (xelib.EditorID(item) == "AbDragon") {
         return "";
     }
 
-    if(inventoryArt.includes("Alteration")){
+    if (inventoryArt.includes("Alteration")) {
         prefix = alterationPrefix
     }
-    else if(inventoryArt.includes("Conjuration")){
+    else if (inventoryArt.includes("Conjuration")) {
         prefix = conjurationPrefix
     }
-    else if(inventoryArt.includes("Destruction")){
+    else if (inventoryArt.includes("Destruction")) {
         prefix = destructionPrefix
     }
-    else if(inventoryArt.includes("Illusion")){
+    else if (inventoryArt.includes("Illusion")) {
         prefix = illusionPrefix
     }
-    else if(inventoryArt.includes("Restoration")){
+    else if (inventoryArt.includes("Restoration")) {
         prefix = restorationPrefix
     }
 

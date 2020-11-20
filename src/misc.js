@@ -10,14 +10,15 @@ exports.getMiscPrefix = function (item, oldName, helpers) {
         oldName == "Black Mage Focusing Gem" ||
         oldName.includes("Soul Gem") ||
         oldName.includes("Reaper Gem Fragment") ||
-        xelib.EditorID(item) == "FFRiften14Ingot"
+        xelib.EditorID(item) == "FFRiften14Ingot" ||
+        xelib.EditorID(item) == "TGCrownGemInventory"
     ) {
         return "";
     }
 
     // TODO: Use patcher systemn's filter properly instead
-    if (!
-        (
+    if (
+        !(
             xelib.HasKeyword(item, 'VendorItemOreIngot') ||
             xelib.HasKeyword(item, 'VendorItemAnimalHide') ||
             xelib.HasKeyword(item, 'ArmorMaterialHide') ||

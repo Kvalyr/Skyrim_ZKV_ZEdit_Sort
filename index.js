@@ -1,30 +1,27 @@
 let patcher = require(patcherPath + '\\src\\patcher.js')(patcherPath);
 
-/* global ngapp, xelib, registerPatcher */
+/* global ngapp, xelib */
 registerPatcher({
     info: info,
     gameModes: [xelib.gmTES5, xelib.gmSSE],
     settings: {
-        label: 'Dynamic Item Sort Patcher',
-        hide: false,
+        label: 'ZKV_Sort Settings',
+        templateUrl: `${patcherUrl}/partials/settings.html`,
         defaultSettings: {
             patchFileName: 'ZKV_ZEdit_Sort.esp',
         },
     },
     execute: (patchFile, helpers, settings, locals) => ({
-        // initialize: function () {
-        //     // locals.potion_keyword = xelib.GetHexFormID(xelib.GetElement(0, 'Skyrim.esm\\KYWD\\VendorItemPotion'));
-        //     // locals.poison_keyword = xelib.GetHexFormID(xelib.GetElement(0, 'Skyrim.esm\\KYWD\\VendorItemPoison'));
-        // },
         process: [
-            // patcher.armorRenamer,
-            // patcher.weaponRenamer,
-            patcher.ingestiblesRenamer
-
-            // projectile (arrow/bolt)
-            // soul gem (size, empty/full, soul-size)
-            // spell (school, level)
-            // ingredient
+            patcher.armorRenamer,
+            patcher.weaponRenamer,
+            patcher.ingestiblesRenamer,
+            patcher.ammoRenamer,
+            patcher.bookRenamer,
+            patcher.soulGemRenamer,
+            patcher.spellRenamer,
+            patcher.spellTomeRenamer,
+            patcher.miscRenamer,
         ],
         finalize: function () {
             let diff = new Date() - locals.date;

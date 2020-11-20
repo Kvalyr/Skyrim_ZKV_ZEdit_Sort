@@ -105,7 +105,7 @@ module.exports = function (patcherPath) {
                 renamer(item, oldName, prefix, helpers);
             }
             // Fix classification of some drinks as Raw food by some mods (affects sorting in SkyUI)
-            if (xelib.FullName(item).startsWith("Drink")){
+            if (xelib.FullName(item).startsWith("Drink")) {
                 xelib.RemoveKeyword(item, 'VendorItemFoodRaw');
                 xelib.AddKeyword(item, 'VendorItemFood');
             }
@@ -134,10 +134,10 @@ module.exports = function (patcherPath) {
                 "DLC1BoltSteelExplodingIce",
                 "DLC1BoltSteelExplodingShock",
             ]
-            if (specialCaseEDIDs.includes(xelib.EditorID(item))){
+            if (specialCaseEDIDs.includes(xelib.EditorID(item))) {
                 ammo.specialCases(item, oldName, helpers, separator);
             }
-            else{
+            else {
                 let prefix = ammo.getAmmoPrefix(item, oldName, helpers);
                 if (!isEmpty(prefix)) {
                     // Remove suffix first (5th arg) on these. i.e.; "Ebony Arrow" -> "Arrow: Ebony"
@@ -160,7 +160,7 @@ module.exports = function (patcherPath) {
             let oldName = xelib.FullName(item)
             let prefix = books.getBookPrefix(item, oldName, helpers);
 
-            if(xelib.EditorID(item) == "Book3ValuableChaurusPie"){
+            if (xelib.EditorID(item) == "Book3ValuableChaurusPie") {
                 return;
             }
 
@@ -191,25 +191,25 @@ module.exports = function (patcherPath) {
             let edid = xelib.EditorID(item);
 
             // Also handle GIST soul gems
-            if(edid.startsWith("SoulGemPetty") || edid.startsWith("ogsg_SoulGemPetty")){
+            if (edid.startsWith("SoulGemPetty") || edid.startsWith("ogsg_SoulGemPetty")) {
                 xelib.SetValue(item, 'FULL', "Soul Gem: I - Petty");
             }
-            else if(edid.startsWith("SoulGemLesser") || edid.startsWith("ogsg_SoulGemLesser")){
+            else if (edid.startsWith("SoulGemLesser") || edid.startsWith("ogsg_SoulGemLesser")) {
                 xelib.SetValue(item, 'FULL', "Soul Gem: II - Lesser");
             }
-            else if(edid.startsWith("SoulGemCommon") || edid.startsWith("ogsg_SoulGemCommon")){
+            else if (edid.startsWith("SoulGemCommon") || edid.startsWith("ogsg_SoulGemCommon")) {
                 xelib.SetValue(item, 'FULL', "Soul Gem: III - Common");
             }
-            else if(edid.startsWith("SoulGemGreater") || edid.startsWith("ogsg_SoulGemGreater")){
+            else if (edid.startsWith("SoulGemGreater") || edid.startsWith("ogsg_SoulGemGreater")) {
                 xelib.SetValue(item, 'FULL', "Soul Gem: IV - Greater");
             }
-            else if(edid.startsWith("SoulGemGrand") || edid.startsWith("ogsg_SoulGemGrand")){
+            else if (edid.startsWith("SoulGemGrand") || edid.startsWith("ogsg_SoulGemGrand")) {
                 xelib.SetValue(item, 'FULL', "Soul Gem: V - Grand");
             }
-            else if(edid.startsWith("SoulGemBlack") || edid.startsWith("ogsg_SoulGemBlack")){
+            else if (edid.startsWith("SoulGemBlack") || edid.startsWith("ogsg_SoulGemBlack")) {
                 xelib.SetValue(item, 'FULL', "Soul Gem: VI - Black");
             }
-            if(edid.includes("Filled")){
+            if (edid.includes("Filled")) {
                 let oldName = xelib.FullName(item);
                 xelib.SetValue(item, 'FULL', oldName + " [Filled]");
             }
@@ -242,8 +242,8 @@ module.exports = function (patcherPath) {
                 filter: function (record) {
                     let spellDataHandle = xelib.GetElement(record, "SPIT");
                     return xelib.HasElement(record, 'FULL') &&
-                    xelib.GetValue(spellDataHandle, "Base Cost") > 0 &&
-                    !xelib.GetValue(spellDataHandle, "Half-cost Perk").startsWith("NULL");
+                        xelib.GetValue(spellDataHandle, "Base Cost") > 0 &&
+                        !xelib.GetValue(spellDataHandle, "Half-cost Perk").startsWith("NULL");
                 }
             }
         },
@@ -268,8 +268,8 @@ module.exports = function (patcherPath) {
                 signature: 'BOOK',
                 filter: function (record) {
                     return xelib.HasElement(record, 'FULL') &&
-                    xelib.FullName(record).includes("Spell Tome") &&
-                    xelib.HasKeyword(record, 'VendorItemSpellTome');
+                        xelib.FullName(record).includes("Spell Tome") &&
+                        xelib.HasKeyword(record, 'VendorItemSpellTome');
                 }
             }
         },
