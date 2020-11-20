@@ -5,7 +5,6 @@ function isEmpty(str) {
 const addClassJewelry = false;
 const groupJewelry = false;
 const jewelryClassInsteadOfSlot = false;
-const separator = ": ";
 const unclassifeidStr = "UNCLASSIFIED";
 const unknownSlotStr = "UNKNOWN_SLOT";
 
@@ -184,5 +183,5 @@ exports.getArmorPrefix = function (item, oldName, helpers) {
     //     return "";
     // }
 
-    return prefix + separator;
+    return prefix;
 }

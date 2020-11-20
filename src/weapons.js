@@ -5,8 +5,6 @@ function isEmpty(str) {
 
 exports.getWeaponPrefix = function (item, oldName, helpers) {
     let weaponType = xelib.GetValue(item, 'DNAM\\Animation Type');
-
-    let separator = ": ";
     let handedness = "";
     let handednessAfter = true;
     let weapDisplayType = "WEAPON"
@@ -79,5 +77,5 @@ exports.getWeaponPrefix = function (item, oldName, helpers) {
         return "";
     }
 
-    return prefix + separator;
+    return prefix;
 }

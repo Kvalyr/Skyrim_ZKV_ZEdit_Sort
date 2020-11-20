@@ -4,8 +4,7 @@ function isEmpty(str) {
 
 
 exports.getIngestiblePrefix = function (item, oldName, helpers) {
-    let separator = ": ";
-
+    let prefix = "";
     if (oldName.startsWith("Drink -") || oldName.startsWith("Food -")){
         // Early return to prevent hassle from mis-classified items in VitalityMode
         return "fixSep";
@@ -17,15 +16,15 @@ exports.getIngestiblePrefix = function (item, oldName, helpers) {
     if (xelib.HasKeyword(item, 'VendorItemPoison')) {
         prefix = "Poison";
     }
+    if (xelib.HasKeyword(item, 'VendorItemFoodRaw')) {
+        prefix = "Raw";
+    }
     if (xelib.HasKeyword(item, 'VendorItemFood')) {
         prefix = "Food";
         let pickupSound = xelib.GetValue(item, 'YNAM');
-        if (pickupSound == 'ITMPotionUpSD [SNDR:0003EDBD]') {
+        if (pickupSound == 'ITMPotionUpSD [SNDR:0003EDBD]' || pickupSound == 'ITMIngredientBowlUp [SNDR:000FC21F]') {
             prefix = "Drink";
         }
-    }
-    if (xelib.HasKeyword(item, 'VendorItemFoodRaw')) {
-        prefix = "Raw";
     }
 
     if (oldName.startsWith(prefix + " of")) {
@@ -33,5 +32,5 @@ exports.getIngestiblePrefix = function (item, oldName, helpers) {
         return "";
     }
 
-    return prefix + separator;
+    return prefix;
 }
