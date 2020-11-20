@@ -2,11 +2,11 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 };
 
-exports.getBookPrefix = function (item, oldName, helpers) {
+exports.getBookPrefix = function (item, oldName, helpers, settings) {
     let prefix = "";
 
     if (oldName.includes("Recipe")) {
-        prefix = "Recipe";
+        prefix = settings.books_recipeText;
     }
     if (isEmpty(prefix) || oldName.startsWith(prefix)) {
         return "";
@@ -15,10 +15,11 @@ exports.getBookPrefix = function (item, oldName, helpers) {
     return prefix;
 }
 
-exports.specialCases = function (item, oldName, helpers, separator) {
+exports.specialCases = function (item, oldName, helpers, settings) {
 
     if (oldName.includes("Atronach Forge")) {
+        let separator = settings.general_compiledSeparator;
         let desc = xelib.GetValue(item, 'CNAM');
-        xelib.SetValue(item, 'FULL', "Recipe: Atronach Forge - " + desc);
+        xelib.SetValue(item, 'FULL', settings.books_recipeText + separator + "Atronach Forge - " + desc);
     }
 }

@@ -3,27 +3,38 @@ function isEmpty(str) {
 };
 
 
-exports.getIngestiblePrefix = function (item, oldName, helpers) {
+exports.getIngestiblePrefix = function (item, oldName, helpers, settings) {
     let prefix = "";
     if (oldName.startsWith("Drink -") || oldName.startsWith("Food -")) {
         // Early return to prevent hassle from mis-classified items in VitalityMode
         return "fixSep";
     }
 
-    if (xelib.HasKeyword(item, 'VendorItemPotion')) {
-        prefix = "Potion";
+    if (settings.consumables_potionsEnable && xelib.HasKeyword(item, 'VendorItemPotion')) {
+        prefix = settings.consumables_potionsText;
     }
-    if (xelib.HasKeyword(item, 'VendorItemPoison')) {
-        prefix = "Poison";
+
+    if (settings.consumables_poisonsEnable && xelib.HasKeyword(item, 'VendorItemPoison')) {
+        prefix = settings.consumables_poisonsText;
     }
-    if (xelib.HasKeyword(item, 'VendorItemFoodRaw')) {
-        prefix = "Raw";
+
+    if (settings.consumables_cookedFoodEnable && xelib.HasKeyword(item, 'VendorItemFood')) {
+        prefix = settings.consumables_cookedFoodText;
+        if(settings.consumables_identifyDrinks){
+            let pickupSound = xelib.GetValue(item, 'YNAM');
+            if (pickupSound == 'ITMPotionUpSD [SNDR:0003EDBD]' || pickupSound == 'ITMIngredientBowlUp [SNDR:000FC21F]') {
+                prefix = "Drink";
+            }
+        }
     }
-    if (xelib.HasKeyword(item, 'VendorItemFood')) {
-        prefix = "Food";
-        let pickupSound = xelib.GetValue(item, 'YNAM');
-        if (pickupSound == 'ITMPotionUpSD [SNDR:0003EDBD]' || pickupSound == 'ITMIngredientBowlUp [SNDR:000FC21F]') {
-            prefix = "Drink";
+
+    if (settings.consumables_rawFoodEnable && xelib.HasKeyword(item, 'VendorItemFoodRaw')) {
+        prefix = settings.consumables_rawFoodText;
+        if(settings.consumables_identifyDrinks){
+            let pickupSound = xelib.GetValue(item, 'YNAM');
+            if (pickupSound == 'ITMPotionUpSD [SNDR:0003EDBD]' || pickupSound == 'ITMIngredientBowlUp [SNDR:000FC21F]') {
+                prefix = "Drink";
+            }
         }
     }
 

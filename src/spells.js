@@ -16,7 +16,7 @@ const illusionPrefix = "Illusion";
 const restorationPrefix = "Restoration";
 
 
-exports.getSpellPrefix = function (item, oldName, helpers) {
+exports.getSpellPrefix = function (item, oldName, helpers, settings) {
     let prefix = "";
     let masteryLevel = "";
 
@@ -67,7 +67,6 @@ exports.getSpellPrefix = function (item, oldName, helpers) {
 
 exports.getSpellTomePrefix = function (item, oldName, helpers) {
     let prefix = "";
-    let masteryLevel = "";
 
     let inventoryArt = xelib.GetValue(item, "INAM");
 

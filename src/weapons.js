@@ -3,79 +3,87 @@ function isEmpty(str) {
 };
 
 
-exports.getWeaponPrefix = function (item, oldName, helpers) {
+exports.getWeaponPrefix = function (item, oldName, helpers, settings) {
     let weaponType = xelib.GetValue(item, 'DNAM\\Animation Type');
     let handedness = "";
-    let handednessAfter = true;
     let weapDisplayType = "WEAPON"
     let melee = false;
+
+    let oneHandText = settings.weapons_oneHandText;
+    let twoHandText = settings.weapons_twoHandText;
+
     switch (weaponType) {
         // Melee
         case "OneHandSword":
-            weapDisplayType = "Sword";
-            handedness = "1h";
+            weapDisplayType = settings.weapons_1hSwordText;
+            handedness = oneHandText;
             melee = true;
             break;
         case "OneHandDagger":
-            weapDisplayType = "Dagger";
-            handedness = "1h";
+            weapDisplayType = settings.weapons_DaggerText;
+            handedness = oneHandText;
             melee = true;
             break;
         case "OneHandAxe":
-            weapDisplayType = "Axe";
-            handedness = "1h";
+            weapDisplayType = settings.weapons_1hAxeText;
+            handedness = oneHandText;
             melee = true;
             break;
         case "OneHandMace":
-            weapDisplayType = "Mace";
-            handedness = "1h";
+            weapDisplayType = settings.weapons_1hHammerText;
+            handedness = oneHandText;
             melee = true;
             break;
         case "TwoHandSword":
-            weapDisplayType = "Sword";
-            handedness = "2h";
+            weapDisplayType = settings.weapons_2hSwordText;
+            handedness = twoHandText;
             melee = true;
             break;
         case "TwoHandAxe":
-            weapDisplayType = "Axe";
+            weapDisplayType = settings.weapons_2hAxeText;
             if (oldName.includes("hammer")) {
-                weapDisplayType = "Warhammer";
+                weapDisplayType = settings.weapons_2hHammerText;
             }
-            handedness = "2h";
+            handedness = twoHandText;
             melee = true;
             break;
 
         // Ranged
         case "Bow":
-            weapDisplayType = "Bow";
-            // handedness = "2h";
+            weapDisplayType = settings.weapons_BowText;
+            // handedness = twoHandText;
             break;
         case "Crossbow":
-            weapDisplayType = "Crossbow";
-            // handedness = "2h";
+            weapDisplayType = settings.weapons_CrossbowText;
+            // handedness = twoHandText;
             break;
         case "Staff":
-            weapDisplayType = "Staff";
-            // handedness = "2h";
+            weapDisplayType = settings.weapons_StaffText;
+            // handedness = twoHandText;
             break;
 
         default:
             // Invalid weapon type, don't modify this record
-            helpers.logMessage("Skipping weapon with invalid/unrecognize WeaponType:" + oldName);
+            helpers.logMessage("Skipping weapon with invalid/unrecognized WeaponType:" + oldName);
             return "";
     }
 
 
-    let prefix = handedness + " " + weapDisplayType;
-    if (melee && handednessAfter) {
-        handedness = "(" + handedness + ")"
-        prefix = weapDisplayType + " " + handedness;
-    }
-
+    let prefix = weapDisplayType;
     if (oldName.startsWith(prefix + " of")) {
         // Last ditch to catch stuff like "Staff: Staff of Fury"
         return "";
     }
+
+    if(settings.weapons_handedness){
+        if (melee && settings.weapons_handednessAfter) {
+            prefix = weapDisplayType + " " + handedness;
+        }
+        else{
+            prefix = handedness + " " + weapDisplayType;
+        }
+    }
+
 
     return prefix;
 }

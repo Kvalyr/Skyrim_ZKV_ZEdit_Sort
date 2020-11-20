@@ -1,2 +1,638 @@
-<h1>ZKV_Sort Settings</h1>
+<h1>ZKVSort Settings</h1>
+
 <ignore-plugins patcher-id="ZKV_Sort"></ignore-plugins>
+
+<div>
+    <h4>Mouse-over the labels to see explanations.</h4>
+
+    <!-- ==== General ==== -->
+    <hr><h3>General</h3>
+
+    <section>
+
+        <label>
+            <span class="input-label" title="Separator text to place between the prefix and the item's name. Default: ':'">
+                Separator:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.general_separator" size="1" />
+        </label>
+
+        <label>
+            <span class="input-label" title="Place a space between the prefix and the separator">
+                Space before Separator:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.general_spaceBeforeSeparator" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Place a space between the separator and the item name">
+                Space after Separator:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.general_spaceAfterSeparator" />
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+    <!-- ==== Weapons ==== -->
+    <hr><h3>Weapons</h3>
+
+    <section>
+
+        <label>
+            <span class="input-label" title="E.g.: 'Sword: Iron Sword', 'Bow: Daedric Bow', etc.">
+                Add weapon type as prefix for sorting Weapons:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.weapons_enable" />
+            <br/><span style="font-size:11px">If Disabled: Makes no changes to weapons.</span>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Shows an identifier for 1H vs 2H on weapon prefixes">
+                Show Handedness for Weapons:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.weapons_handedness" />
+            <br/><span style="font-size:11px">Alternatively: Disable this and add identifiers manually to the weapon type identifiers further below.</span>
+        </label>
+
+        <label>
+            <span class="input-label" title="Text to show for One-Handed weapons. Default: '1h'">
+                One-Handed Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_oneHandText"/>
+        </label>
+
+        <label>
+            <span class="input-label" title="Text to show for Two-Handed weapons. Default: '2h'">
+                Two-Handed Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_twoHandText"/>
+        </label>
+
+        <label>
+            <span class="input-label" title="Shows the one-hand/two-hand text after the weapon's type. E.g.: 'Sword [1h]: Iron Sword'.">
+                Weapon Handedness After Weapon Type:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.weapons_handednessAfter" />
+            <br/><span style="font-size:11px">If disabled: Shows before the weapon type instead.</span>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Prefix to use for One-Handed Swords">
+                One-Handed Sword Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_1hSwordText"/>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for Two-Handed Swords">
+                Two-Handed Sword Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_2hSwordText"/>
+            <br/><span style="font-size:11px">Alternative suggestion: 'Greatsword'</span>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for One-Handed Axes">
+                One-Handed Axe Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_1hAxeText"/>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for Two-Handed Axes">
+                Two-Handed Axe Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_2hAxeText"/>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for One-Handed Hammers">
+                One-Handed Hammer Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_1hHammerText"/>
+            <br/><span style="font-size:11px">Alternative suggestion: 'Mace'</span>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for Two-Handed Hammers">
+                Two-Handed Hammer Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_2hHammerText"/>
+            <br/><span style="font-size:11px">Alternative suggestion: 'Warhammer'</span>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for Daggers">
+                Dagger Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_DaggerText"/>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for Bows">
+                Bow Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_BowText"/>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for Crossbows">
+                Crossbow Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_CrossbowText"/>
+        </label>
+        <!-- <br/> -->
+        <label>
+            <span class="input-label" title="Prefix to use for Staves">
+                Staff Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.weapons_StaffText"/>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="E.g.: 'Elven Bow' becomes 'Bow: Eleven'">
+                Remove the item type from the end of the weapon's name:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.weapons_movePrefix" />
+            <br/><span style="font-size:11px">If disabled: Retains the item type at the end of the item name. E.g.: 'Bow: Elven Bow'</span>
+            <br/><span style="font-size:11px">Warning: This feature won't work well if the above identifiers don't match parts of the original weapon name.</span>
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+    <!-- ==== Ammo ==== -->
+    <hr><h3>Ammunition</h3>
+
+    <section>
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to ammo">
+                Add ammo type as prefix for sorting Ammunition:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.ammo_enable" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Prefix to use for Arrows. Default: 'Arrow'">
+                Arrow Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.ammo_arrowText"/>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Prefix to use for Bolts. Default: 'Bolt'">
+                Bolt Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.ammo_boltText"/>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="E.g.: 'Elven Arrow' becomes 'Arrow: Elven'">
+                Remove the item type from the end of the item's name:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.ammo_movePrefix" />
+            <br/><span style="font-size:11px">If disabled: Retains the item type at the end of the item name. E.g.: 'Arrow: Elven Arrow'</span>
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+    <!-- ==== Armor ==== -->
+    <hr><h3>Armor</h3>
+
+    <section>
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to armor/clothing">
+                Add equipment slot as sorting prefix for Armor/Clothing:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.armor_enable" />
+        </label>
+        <!-- <br/> -->
+
+        <!-- ==== Clothing ==== -->
+        <label>
+            <span class="input-label" title="Add the equipment class to the item prefix for clothing. E.g.: 'Robes [C]: Necromancer's Robes'">
+                Add clothing class:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.armor_addClothingClass" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Clothing. Default: [C]">
+                Clothing Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.armor_clothingClassText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <!-- ==== Jewelry ==== -->
+        <label>
+            <span class="input-label" title="Add the equipment class to the item prefix for clothing. E.g.: 'Neck [J]: Silver Necklace'">
+                Add jewelry class:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.armor_addJewelryClass" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Clothing. Default: [C]">
+                Jewelry Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.armor_jewelryClassText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <!-- ==== Light ==== -->
+        <label>
+            <span class="input-label" title="Add the equipment class to the item prefix for light armor. E.g.: 'Cuirass [L]: Hide Armor'">
+                Add light armor class:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.armor_addLightClass" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Light armor. Default: [L]">
+                Light Armor Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.armor_lightClassText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <!-- ==== Heavy ==== -->
+        <label>
+            <span class="input-label" title="Add the equipment class to the item prefix for heavy armor. E.g.: 'Cuirass [H]: Iron Armor'">
+                Add light armor class:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.armor_addHeavyClass" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Heavy armor. Default: [H]">
+                Heavy Armor Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.armor_heavyClassText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <!-- ==== Misc ==== -->
+        <label>
+            <span class="input-label" title="Use 'Jewelry' as the slot for all Jewelry items. E.g.: 'Jewelry: Silver Ring', 'Jewelry: Silver Necklace', etc.">
+                Condense jewelry slots to 'Jewelry':
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.armor_jewelryClassInsteadOfSlot" />
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+    <!-- ==== Spells ==== -->
+    <hr><h3>Spells</h3>
+
+    <section>
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to spells">
+                Add Spell School to Spells for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.spells_enable" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="">
+                Add mastery level (Novice, Apprentice, etc.) to Spells for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.spells_addMasteryLevel" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Novice Spells. Default: 'I'">
+                Novice Spell Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.spells_noviceText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Apprentice Spells. Default: 'II'">
+                Apprentice Spell Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.spells_apprenticeText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Adept Spells. Default: 'II'">
+                Adept Spell Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.spells_adeptText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Expert Spells. Default: 'IV'">
+                Expert Spell Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.spells_expertText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Master Spells. Default: 'V'">
+                Master Spell Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.spells_masterText" size="1" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to spell tomes">
+                Add Spell School to Spell Tomes for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.spells_addSchoolToTomes" />
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+    <!-- ==== Soul Gems ==== -->
+    <hr><h3>Soul Gems</h3>
+
+    <section>
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to soul gems">
+                Add identifiers to Soul Gems for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.soulgems_enable" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Petty Soul Gems.">
+                Soul Gem Prefix:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_prefixText" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify filled Soul Gems. Default: ' [Filled]'">
+                Soul Gem Filled Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_filledText" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Petty Soul Gems.">
+                Petty Soul Gem Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_pettyText" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Lesser Soul Gems.">
+                Lesser Soul Gem Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_lesserText" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Common Soul Gems.">
+                Common Soul Gem Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_commonText" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Greater Soul Gems.">
+                Greater Soul Gem Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_greaterText" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Grand Soul Gems.">
+                Grand Soul Gem Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_grandText" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Black Soul Gems.">
+                Black Soul Gem Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_blackText" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Text to identify Artifact Soul Gems (Azura's Star, The Black Star)">
+                Artifact Soul Gem Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.soulgems_artifactText" />
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+    <!-- ==== Consumables ==== -->
+    <hr><h3>Consumables</h3>
+
+    <section>
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to Potions">
+                Add prefix to Potions for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_potionsEnable" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Prefix to use for Potions. Default: 'Potion'">
+                Potion Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.consumables_potionsText"/>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to Poisons">
+                Add prefix to Poisons for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_poisonsEnable" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Prefix to use for Potions. Default: 'Poison'">
+                Poison Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.consumables_poisonsText"/>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to Cooked/Ready Food">
+                Add prefix to Cooked Food for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_cookedFoodEnable" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Prefix to use for Potions. Default: 'Food'">
+                Cooked Food for Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.consumables_cookedFoodText"/>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to Raw Food">
+                Add prefix to Raw Food for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_rawFoodEnable" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Prefix to use for Raw Food. Default: 'Raw'">
+                Raw Food Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.consumables_rawFoodText"/>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Detects the PickupSound used for an item to determine if it is a drink instead of Food.">
+                Distinguish Drinks from Food:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_identifyDrinks" />
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+    <!-- ==== Books/Notes/Recipes ==== -->
+    <hr><h3>Books/Notes/Recipes</h3>
+
+    <section>
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to recipes">
+                Add prefix to Recipes for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.books_recipes" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="Prefix to use for Recipes. Default: 'Recipe'">
+                Recipe Identifier:
+            </span>
+            <input type="text" ng-model="settings.ZKV_Sort.books_recipeText"/>
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="E.g.: 'Potion Recipe' becomes 'Recipe: Potion' instead of 'Recipe: Potion Recipe'">
+                Remove the item type from the end of the item's name:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.books_movePrefix" />
+            <br/><span style="font-size:11px">If disabled: Retains the item type at the end of the item name. E.g.: 'Recipe: Potion Recipe'</span>
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+    <!-- ==== Misc/Crafting/Clutter ==== -->
+    <hr><h3>Crafting/Clutter/Miscellaneous</h3>
+
+    <section>
+
+        <!-- <label>
+            <span class="input-label" title="If Disabled: Makes no changes to miscellaneous items">
+                Add prefix to Recipes for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.recipes_enable" />
+        </label> -->
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to ore">
+                Add prefix to Ore for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.misc_ore" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to ingots">
+                Add prefix to Ingots for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.misc_ingots" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to hide">
+                Add prefix to Hide for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.misc_hide" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to leather">
+                Add prefix to Leather for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.misc_leather" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to gems">
+                Add prefix to Gems for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.misc_gems" />
+        </label>
+        <!-- <br/> -->
+
+        <label>
+            <span class="input-label" title="If Disabled: Makes no changes to clutter">
+                Add prefix to Clutter for sorting:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.misc_clutter" />
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
+
+
+
+
+
+</div>

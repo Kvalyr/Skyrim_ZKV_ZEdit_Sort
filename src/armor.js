@@ -8,7 +8,7 @@ const jewelryClassInsteadOfSlot = false;
 const unclassifeidStr = "UNCLASSIFIED";
 const unknownSlotStr = "UNKNOWN_SLOT";
 
-exports.getArmorPrefix = function (item, oldName, helpers) {
+exports.getArmorPrefix = function (item, oldName, helpers, settings) {
     let addSlot = true;
     let addClass = false;
     let prefix = unclassifeidStr;

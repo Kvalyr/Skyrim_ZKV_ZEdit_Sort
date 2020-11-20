@@ -3,7 +3,7 @@ function isEmpty(str) {
 };
 
 
-exports.getMiscPrefix = function (item, oldName, helpers) {
+exports.getMiscPrefix = function (item, oldName, helpers, settings) {
     let prefix = "";
 
     if (
