@@ -10,8 +10,13 @@ exports.getMiscPrefix = function (item, oldName, helpers) {
         oldName == "Black Mage Focusing Gem" ||
         oldName.includes("Soul Gem") ||
         oldName.includes("Reaper Gem Fragment") ||
-        xelib.EditorID(item) == "FFRiften14Ingot" ||
-        xelib.EditorID(item) == "TGCrownGemInventory"
+        xelib.EditorID(item) == "DA09Gem" ||
+        xelib.EditorID(item) == "Gold001" ||    // Septim
+        xelib.EditorID(item) == "Buckles" ||    // CCOR
+        xelib.EditorID(item).startsWith("AP_Misc_PortalStone") ||   // Shalidor's Migrant Portals
+        xelib.EditorID(item).startsWith("FFRiften") ||
+        xelib.EditorID(item).startsWith("TG") ||    // Quest Items
+        xelib.EditorID(item).startsWith("1Dr_BAN")  // Bandolier crafting parts
     ) {
         return "";
     }
@@ -48,8 +53,7 @@ exports.getMiscPrefix = function (item, oldName, helpers) {
         prefix = "Clutter";
     }
 
-    if (oldName.startsWith(prefix + " of")) {
-        // Last ditch to catch stuff like "Staff: Staff of Fury"
+    if (oldName.startsWith(prefix)) {
         return "";
     }
 

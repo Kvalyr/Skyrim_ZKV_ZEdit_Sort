@@ -17,6 +17,7 @@ const renamer = function (item, oldName, prefix, helpers, removeSuffixFirst) {
         oldName = removeSuffix(oldName, prefix);
     }
     let newName = prefix + separator + " " + oldName;
+    newName = newName.trim()
     helpers.logMessage("Changing weapon name from " + oldName + " to " + newName);
     xelib.SetValue(item, 'FULL', newName);
 };
@@ -34,6 +35,7 @@ const fixSeperator = function (item, oldName, helpers) {
 
     let regex = /\s*-/gi;
     let newName = oldName.replace(regex, separator)
+    newName = newName.trim()
 
     helpers.logMessage("Fixing separator from " + oldName + " to " + newName);
     xelib.SetValue(item, 'FULL', newName);
@@ -55,12 +57,12 @@ module.exports = function (patcherPath) {
             return {
                 signature: 'WEAP',
                 filter: function (record) {
-                    return xelib.HasElement(record, 'FULL');// && xelib.HasElement(record, 'KWDA');    // Has a display name and Keywords
+                    return xelib.HasElement(record, 'FULL');
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
+            let oldName = xelib.FullName(item).trim()
             let prefix = weapons.getWeaponPrefix(item, oldName, helpers);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, prefix, helpers);
@@ -73,12 +75,12 @@ module.exports = function (patcherPath) {
             return {
                 signature: 'ARMO',
                 filter: function (record) {
-                    return xelib.HasElement(record, 'FULL') && xelib.HasElement(record, 'KWDA');    // Has a display name and Keywords
+                    return xelib.HasElement(record, 'FULL') && xelib.HasElement(record, 'KWDA');
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
+            let oldName = xelib.FullName(item).trim()
             let prefix = armor.getArmorPrefix(item, oldName, helpers);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, prefix, helpers);
@@ -91,12 +93,12 @@ module.exports = function (patcherPath) {
             return {
                 signature: 'ALCH',
                 filter: function (record) {
-                    return xelib.HasElement(record, 'FULL');    // Has a display name and Keywords
+                    return xelib.HasElement(record, 'FULL');
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
+            let oldName = xelib.FullName(item).trim()
             let prefix = consumables.getIngestiblePrefix(item, oldName, helpers);
             if (prefix == "fixSep") {
                 fixSeperator(item, oldName, helpers);
@@ -117,12 +119,12 @@ module.exports = function (patcherPath) {
             return {
                 signature: 'AMMO',
                 filter: function (record) {
-                    return xelib.HasElement(record, 'FULL');    // Has a display name and Keywords
+                    return xelib.HasElement(record, 'FULL');
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
+            let oldName = xelib.FullName(item).trim()
 
             // Fuckit - Hardcode the special cases
             let specialCaseEDIDs = [
@@ -152,12 +154,12 @@ module.exports = function (patcherPath) {
             return {
                 signature: 'BOOK',
                 filter: function (record) {
-                    return xelib.HasElement(record, 'FULL') && !xelib.FullName(record).includes("Spell Tome");    // Has a display name and Keywords
+                    return xelib.HasElement(record, 'FULL') && !xelib.FullName(record).includes("Spell Tome");
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
+            let oldName = xelib.FullName(item).trim()
             let prefix = books.getBookPrefix(item, oldName, helpers);
 
             if (xelib.EditorID(item) == "Book3ValuableChaurusPie") {
@@ -180,15 +182,19 @@ module.exports = function (patcherPath) {
             return {
                 signature: 'SLGM',
                 filter: function (record) {
-                    return xelib.HasElement(record, 'FULL');    // Has a display name and Keywords
+                    return xelib.HasElement(record, 'FULL');
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
-            let prefix = books.getBookPrefix(item, oldName, helpers);
-
             let edid = xelib.EditorID(item);
+
+            if (edid == "DA01SoulGemAzurasStar") {
+                xelib.SetValue(item, 'FULL', "Soul Gem: Azura's Star");
+            }
+            else if (edid == "DA01SoulGemBlackStar") {
+                xelib.SetValue(item, 'FULL', "Soul Gem: The Black Star");
+            }
 
             // Also handle GIST soul gems
             if (edid.startsWith("SoulGemPetty") || edid.startsWith("ogsg_SoulGemPetty")) {
@@ -222,12 +228,12 @@ module.exports = function (patcherPath) {
             return {
                 signature: 'MISC',
                 filter: function (record) {
-                    return xelib.HasElement(record, 'FULL');// && xelib.HasElement(record, 'KWDA');    // Has a display name and Keywords
+                    return xelib.HasElement(record, 'FULL');
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
+            let oldName = xelib.FullName(item).trim()
             let prefix = misc.getMiscPrefix(item, oldName, helpers);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, prefix, helpers, true);
@@ -248,7 +254,7 @@ module.exports = function (patcherPath) {
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
+            let oldName = xelib.FullName(item).trim()
             let spellDataHandle = xelib.GetElement(item, "SPIT");
             let baseCost = xelib.GetValue(spellDataHandle, "Base Cost");
             let halfCostPerk = xelib.GetValue(spellDataHandle, "Half-cost Perk");
@@ -274,7 +280,7 @@ module.exports = function (patcherPath) {
             }
         },
         patch: function (item, helpers, settings, locals) {
-            let oldName = xelib.FullName(item)
+            let oldName = xelib.FullName(item).trim()
 
             // Remove "Spell Tome: " from the name first, to reinsert later
             let regex = new RegExp("^Spell Tome: ");
