@@ -2,9 +2,9 @@
     "id": "ZKV_Sort",
     "name": "ZKV_Sort",
     "author": "Kvalyr",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "released": "19/Nov/2020",
-    "updated": "19/Nov/2020",
+    "updated": "21/Nov/2020",
     "description": "Rename items using a patcher for inventory sorting without esp conflicts",
     "requires": [
         "unifiedPatchingFramework"

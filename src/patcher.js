@@ -31,7 +31,7 @@ const renamer = function (item, oldName, prefix, helpers, removeSuffixFirst, set
     let separator = settings.general_compiledSeparator;
     let newName = prefix + separator + " " + oldName;
     newName = newName.trim()
-    helpers.logMessage("Changing weapon name from " + originalOldName + " to " + newName);
+    helpers.logMessage("Changing record name from " + originalOldName + " to " + newName);
     xelib.SetValue(item, 'FULL', newName);
 };
 
@@ -292,19 +292,13 @@ module.exports = function (patcherPath) {
                 filter: function (record) {
                     let spellDataHandle = xelib.GetElement(record, "SPIT");
                     return xelib.HasElement(record, 'FULL') &&
-                        xelib.GetValue(spellDataHandle, "Base Cost") > 0 &&
-                        !xelib.GetValue(spellDataHandle, "Half-cost Perk").startsWith("NULL");
+                        // xelib.GetValue(spellDataHandle, "Base Cost") > 0 && // Not a good fit for "Sustained Magic"
+                        xelib.GetValue(spellDataHandle, "Type") == "Spell";
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
             let oldName = xelib.FullName(item).trim()
-            let spellDataHandle = xelib.GetElement(item, "SPIT");
-            let baseCost = xelib.GetValue(spellDataHandle, "Base Cost");
-            let halfCostPerk = xelib.GetValue(spellDataHandle, "Half-cost Perk");
-
-            helpers.logMessage("Spell: " + oldName + " - baseCost: " + baseCost + " - halfCostPerk: " + halfCostPerk);
-
             let prefix = spells.getSpellPrefix(item, oldName, helpers);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, prefix, helpers, false, settings);
@@ -330,7 +324,7 @@ module.exports = function (patcherPath) {
             let regex = new RegExp("^Spell Tome: ");
             oldName = oldName.replace(regex, "");
 
-            let prefix = spells.getSpellTomePrefix(item, oldName, helpers);
+            let prefix = spells.getSpellTomePrefix(item, oldName, helpers, settings);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, "Spell Tome - " + prefix, helpers, false, settings);
             }
