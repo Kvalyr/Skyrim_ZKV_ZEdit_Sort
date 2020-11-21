@@ -35,6 +35,26 @@
 
     </section>
 
+    <!-- ==== Overrides ==== -->
+    <hr><h3>JSON Overrides</h3>
+    <section>
+        <span style="font-size:12px">Place JSON override files in the 'overrides' folder. Copy the .json files from the 'rules' folder for a basis.</span>
+        <br/><span style="font-size:12px">Do <b>NOT</b> directly edit the files in the 'rules' folder or you'll break the patcher.</span>
+        <br/>
+        <br/><span style="font-size:12px">JSON is strict. Validate your custom overrides with an online JSON validator before you try to use them.</span>
+        <br/><span style="font-size:12px">If you get errors about unexpected characters/symbols in the JSON, you need to fix/validate the files.</span>
+        <br/><span style="font-size:12px">Do <b>NOT</b> report JSON validation errors as bugs - These issues are the result of <b>user error.</b></span>
+
+        <label>
+            <span class="input-label" title="Loads overrides from JSON files in the '\overrides\' folder.">
+                Load Overrides JSON:
+            </span>
+            <input type="checkbox" ng-model="settings.ZKV_Sort.general_loadOverrides" />
+        </label>
+        <!-- <br/> -->
+
+    </section>
+
     <!-- ==== Weapons ==== -->
     <hr><h3>Weapons</h3>
 
@@ -92,7 +112,7 @@
                 Two-Handed Sword Identifier:
             </span>
             <input type="text" ng-model="settings.ZKV_Sort.weapons_2hSwordText"/>
-            <br/><span style="font-size:11px">Alternative suggestion: 'Greatsword'</span>
+            <!-- <br/><span style="font-size:11px">Alternative suggestion: 'Greatsword'</span> -->
         </label>
         <!-- <br/> -->
         <label>
@@ -111,18 +131,18 @@
         <!-- <br/> -->
         <label>
             <span class="input-label" title="Prefix to use for One-Handed Hammers">
-                One-Handed Hammer Identifier:
+                One-Handed Blunt Identifier:
             </span>
             <input type="text" ng-model="settings.ZKV_Sort.weapons_1hHammerText"/>
-            <br/><span style="font-size:11px">Alternative suggestion: 'Mace'</span>
+            <!-- <br/><span style="font-size:11px">Alternative suggestion: 'Mace'</span> -->
         </label>
         <!-- <br/> -->
         <label>
             <span class="input-label" title="Prefix to use for Two-Handed Hammers">
-                Two-Handed Hammer Identifier:
+                Two-Handed Blunt Identifier:
             </span>
             <input type="text" ng-model="settings.ZKV_Sort.weapons_2hHammerText"/>
-            <br/><span style="font-size:11px">Alternative suggestion: 'Warhammer'</span>
+            <!-- <br/><span style="font-size:11px">Alternative suggestion: 'Warhammer'</span> -->
         </label>
         <!-- <br/> -->
         <label>
@@ -465,7 +485,7 @@
             <span class="input-label" title="If Disabled: Makes no changes to Potions">
                 Add prefix to Potions for sorting:
             </span>
-            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_potionsEnable" />
+            <input type="checkbox" ng-model="settings.ZKV_Sort.ingestibles_potionsEnable" />
         </label>
         <!-- <br/> -->
 
@@ -473,7 +493,7 @@
             <span class="input-label" title="Prefix to use for Potions. Default: 'Potion'">
                 Potion Identifier:
             </span>
-            <input type="text" ng-model="settings.ZKV_Sort.consumables_potionsText"/>
+            <input type="text" ng-model="settings.ZKV_Sort.ingestibles_potionsText"/>
         </label>
         <!-- <br/> -->
 
@@ -481,7 +501,7 @@
             <span class="input-label" title="If Disabled: Makes no changes to Poisons">
                 Add prefix to Poisons for sorting:
             </span>
-            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_poisonsEnable" />
+            <input type="checkbox" ng-model="settings.ZKV_Sort.ingestibles_poisonsEnable" />
         </label>
         <!-- <br/> -->
 
@@ -489,7 +509,7 @@
             <span class="input-label" title="Prefix to use for Potions. Default: 'Poison'">
                 Poison Identifier:
             </span>
-            <input type="text" ng-model="settings.ZKV_Sort.consumables_poisonsText"/>
+            <input type="text" ng-model="settings.ZKV_Sort.ingestibles_poisonsText"/>
         </label>
         <!-- <br/> -->
 
@@ -497,7 +517,7 @@
             <span class="input-label" title="If Disabled: Makes no changes to Cooked/Ready Food">
                 Add prefix to Cooked Food for sorting:
             </span>
-            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_cookedFoodEnable" />
+            <input type="checkbox" ng-model="settings.ZKV_Sort.ingestibles_cookedFoodEnable" />
         </label>
         <!-- <br/> -->
 
@@ -505,7 +525,7 @@
             <span class="input-label" title="Prefix to use for Potions. Default: 'Food'">
                 Cooked Food for Identifier:
             </span>
-            <input type="text" ng-model="settings.ZKV_Sort.consumables_cookedFoodText"/>
+            <input type="text" ng-model="settings.ZKV_Sort.ingestibles_cookedFoodText"/>
         </label>
         <!-- <br/> -->
 
@@ -513,7 +533,7 @@
             <span class="input-label" title="If Disabled: Makes no changes to Raw Food">
                 Add prefix to Raw Food for sorting:
             </span>
-            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_rawFoodEnable" />
+            <input type="checkbox" ng-model="settings.ZKV_Sort.ingestibles_rawFoodEnable" />
         </label>
         <!-- <br/> -->
 
@@ -521,7 +541,7 @@
             <span class="input-label" title="Prefix to use for Raw Food. Default: 'Raw'">
                 Raw Food Identifier:
             </span>
-            <input type="text" ng-model="settings.ZKV_Sort.consumables_rawFoodText"/>
+            <input type="text" ng-model="settings.ZKV_Sort.ingestibles_rawFoodText"/>
         </label>
         <!-- <br/> -->
 
@@ -529,7 +549,8 @@
             <span class="input-label" title="Detects the PickupSound used for an item to determine if it is a drink instead of Food.">
                 Distinguish Drinks from Food:
             </span>
-            <input type="checkbox" ng-model="settings.ZKV_Sort.consumables_identifyDrinks" />
+            <input type="checkbox" ng-model="settings.ZKV_Sort.ingestibles_identifyDrinks" />
+            <br/><span style="font-size:11px">Note: Mods occasionally attach the wrong pickup sound to drink items. Patch/modify those mods then re-run this patcher afterwards if some drinks are being misclassified.</span>
         </label>
         <!-- <br/> -->
 

@@ -1,0 +1,30 @@
+{
+    "json_version": "1",
+    "keywords": {
+        "WeapTypeDagger": "Dagger",
+        "WeapTypeSword": "Sword",
+        "WeapTypeGreatsword": "Greatsword",
+        "WeapTypeWarAxe": "War Axe",
+        "WeapTypeBattleaxe": "Battleaxe",
+        "WeapTypeMace": "Mace",
+        "WeapTypeWarhammer": "Warhammer",
+        "WeapTypeStaff": "Staff",
+        "WeapTypeBow": "Bow",
+
+        "WeapTypeClaw": "Claw",
+        "WeapTypeWhip": "Whip",
+        "WeapTypePike": "Pike",
+        "WeapTypeQtrStaff": "Quarterstaff",
+        "WeapTypeHalberd": "Halberd",
+        "WeapTypeRapier": "Rapier"
+    },
+    "ranged": [
+        "Bow",
+        "Crossbow",
+        "Staff"
+    ],
+    "by_name":{
+    },
+    "by_edid":{
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "json_version": "1",
+    "keywords": {
+        "VendorItemPotion": "Potion",
+        "VendorItemPoison": "Poison",
+        "VendorItemFood": "Food",
+        "VendorItemFoodRaw": "Raw"
+    },
+    "by_name":{
+        "Sleeping Tree Sap": "Potion",
+        "Lingering Poison": "Poison",
+        "Butter": "Food",
+        "Venison": "Raw",
+        "Drink - Pure Water": "Drink"
+    },
+    "by_edid":{
+        "DefaultPotion": "Potion"
+    }
+}

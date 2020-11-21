@@ -11,12 +11,12 @@ const removeSuffix = function (oldName, suffix, helpers) {
     return newName;
 }
 
-const buildSeparator = function(settings){
+const buildSeparator = function (settings) {
     let separator = settings.general_separator;
-    if(settings.general_spaceBeforeSeparator){
+    if (settings.general_spaceBeforeSeparator) {
         separator = " " + separator;
     }
-    if(settings.general_spaceAfterSeparator){
+    if (settings.general_spaceAfterSeparator) {
         separator = separator + " ";
     }
     return separator;
@@ -56,11 +56,61 @@ const fixSeperator = function (item, oldName, helpers, settings) {
 };
 
 
-module.exports = function (patcherPath) {
+function getReverseKeywordMapping(keywordsDict) {
+    let keywords_by_type = {}
+    for (var keyword in keywordsDict) {
+        let type = keywordsDict[keyword];
+        if (!keywords_by_type[type]) {
+            keywords_by_type[type] = { keyword: true };
+        }
+        else {
+            keywords_by_type[type][keyword] = true;
+        }
+    }
+    return keywords_by_type;
+}
+
+
+// https://gist.github.com/ahtcx/0cd94e62691f539160b32ecda18af3d6
+// Merge a `source` object to a `target` recursively
+const merge = (target, source) => {
+    // Iterate through `source` properties and if an `Object` set property to merge of `target` and `source` properties
+    for (const key of Object.keys(source)) {
+        if (source[key] instanceof Object) Object.assign(source[key], merge(target[key], source[key]))
+    }
+
+    // Join `target` and modified `source`
+    Object.assign(target || {}, source)
+    return target
+}
+
+
+function loadRulesAndOverrides(fh, patcherPath, key, doOverrides){
+    let rules = fh.loadJsonFile(`${patcherPath}/rules/${key}.json`) || {};
+    if(doOverrides){
+        let overrides = fh.loadJsonFile(`${patcherPath}/overrides/${key}.json`) || {};
+        if (overrides) {
+            rules = merge(rules, overrides);
+        }
+    }
+    if(!rules.keywords){
+        rules.keywords = {};
+    }
+    if(!rules.by_name){
+        rules.by_name = {};
+    }
+    if(!rules.by_edid){
+        rules.by_edid = {};
+    }
+    return rules;
+}
+
+
+module.exports = function (patcherPath, fh) {
     let ammo = require(patcherPath + '\\src\\ammo.js');
     let armor = require(patcherPath + '\\src\\armor.js');
     let books = require(patcherPath + '\\src\\books.js');
-    let consumables = require(patcherPath + '\\src\\consumables.js');
+    let ingestibles = require(patcherPath + '\\src\\ingestibles.js');//;(patcherPath, fh);
     let misc = require(patcherPath + '\\src\\misc.js');
     let spells = require(patcherPath + '\\src\\spells.js');
     let weapons = require(patcherPath + '\\src\\weapons.js');
@@ -87,10 +137,19 @@ module.exports = function (patcherPath) {
         }
     };
 
-    module.init = function(plugin, helpers, settings, locals){
+    module.init = function (plugin, helpers, settings, locals) {
         settings.general_compiledSeparator = buildSeparator(settings);
-        helpers.logMessage("built sep: '" + buildSeparator(settings) + "'");
-        helpers.logMessage("settings.general_compiledSeparator: '" + settings.general_compiledSeparator + "'");
+        let doOverrides = settings.general_loadOverrides;
+
+        locals.weaponsRules = loadRulesAndOverrides(fh, patcherPath, "weapons", doOverrides);
+        locals.armorRules = loadRulesAndOverrides(fh, patcherPath, "armor", doOverrides);
+        locals.ingestiblesRules = loadRulesAndOverrides(fh, patcherPath, "ingestibles", doOverrides);
+        locals.ammoRules = loadRulesAndOverrides(fh, patcherPath, "ammo", doOverrides);
+        locals.booksRules = loadRulesAndOverrides(fh, patcherPath, "books", doOverrides);
+        locals.soulGemsRules = loadRulesAndOverrides(fh, patcherPath, "soul_gems", doOverrides);
+        locals.spellsRules = loadRulesAndOverrides(fh, patcherPath, "spells", doOverrides);
+        locals.spellTomesRules = loadRulesAndOverrides(fh, patcherPath, "spell_tomes", doOverrides);
+        locals.miscRules = loadRulesAndOverrides(fh, patcherPath, "misc", doOverrides);
     }
 
     module.weaponRenamer = {
@@ -104,7 +163,7 @@ module.exports = function (patcherPath) {
         },
         patch: function (item, helpers, settings, locals) {
             let oldName = xelib.FullName(item).trim()
-            let prefix = weapons.getWeaponPrefix(item, oldName, helpers, settings);
+            let prefix = weapons.getWeaponPrefix(item, oldName, helpers, settings, locals);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, prefix, helpers, false, settings);
             }
@@ -140,7 +199,10 @@ module.exports = function (patcherPath) {
         },
         patch: function (item, helpers, settings, locals) {
             let oldName = xelib.FullName(item).trim()
-            let prefix = consumables.getIngestiblePrefix(item, oldName, helpers, settings);
+
+            // let ingestiblesRules = fh.loadJsonFile('${patcherPath}/rules/ingestibles.json');
+
+            let prefix = ingestibles.getIngestiblePrefix(item, oldName, helpers, settings, locals);
             if (prefix == "fixSep") {
                 fixSeperator(item, oldName, helpers, settings);
             }
@@ -194,7 +256,7 @@ module.exports = function (patcherPath) {
             return {
                 signature: 'BOOK',
                 filter: function (record) {
-                    if(!settings.books_recipes) return false;
+                    if (!settings.books_recipes) return false;
                     return xelib.HasElement(record, 'FULL') && !xelib.FullName(record).includes("Spell Tome");
                 }
             }

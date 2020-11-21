@@ -1,3 +1,6 @@
+_release/
 *.jpg
 *.png
 *.zip
+overrides/*
+!overrides/.gitkeep

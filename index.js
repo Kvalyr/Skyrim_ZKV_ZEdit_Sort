@@ -1,7 +1,8 @@
-// let init = require(patcherPath + '\\src\\init.js')(patcherPath, fh);
-let patcher = require(patcherPath + '\\src\\patcher.js')(patcherPath);
+/* global ngapp, xelib, fh */
 
-/* global ngapp, xelib */
+// let init = require(patcherPath + '\\src\\init.js')(patcherPath, fh);
+let patcher = require(patcherPath + '\\src\\patcher.js')(patcherPath, fh);
+
 registerPatcher({
     info: info,
     gameModes: [xelib.gmTES5, xelib.gmSSE],
@@ -14,18 +15,19 @@ registerPatcher({
             general_separator: ":",
             general_spaceBeforeSeparator: false,
             general_spaceAfterSeparator: true,
+            general_loadOverrides: true,
 
             weapons_enable: true,
-            weapons_handedness: true,
-            weapons_oneHandText: "[1h]",
-            weapons_twoHandText: "[2h]",
+            weapons_handedness: false,
+            weapons_oneHandText: "[1H]",
+            weapons_twoHandText: "[2H]",
             weapons_handednessAfter: true,
             weapons_movePrefix: false,
 
             weapons_1hSwordText: "Sword",
-            weapons_2hSwordText: "Sword",
+            weapons_2hSwordText: "Greatsword",
             weapons_1hAxeText: "Axe",
-            weapons_2hAxeText: "Axe",
+            weapons_2hAxeText: "Battleaxe",
             weapons_1hHammerText: "Mace",
             weapons_2hHammerText: "Warhammer",
             weapons_DaggerText: "Dagger",
@@ -55,15 +57,15 @@ registerPatcher({
             ammo_boltText: "Bolt",
             ammo_movePrefix: true,
 
-            consumables_potionsEnable: true,
-            consumables_potionsText: "Potion",
-            consumables_poisonsEnable: true,
-            consumables_poisonsText: "Poison",
-            consumables_cookedFoodEnable: true,
-            consumables_cookedFoodText: "Food",
-            consumables_rawFoodEnable: true,
-            consumables_rawFoodText: "Raw",
-            consumables_identifyDrinks: true,
+            ingestibles_potionsEnable: true,
+            ingestibles_potionsText: "Potion",
+            ingestibles_poisonsEnable: true,
+            ingestibles_poisonsText: "Poison",
+            ingestibles_cookedFoodEnable: true,
+            ingestibles_cookedFoodText: "Food",
+            ingestibles_rawFoodEnable: true,
+            ingestibles_rawFoodText: "Raw",
+            ingestibles_identifyDrinks: true,
 
             spells_enable: true,
             spells_addMasteryLevel: true,
