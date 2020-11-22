@@ -15,11 +15,11 @@ const standardSkyrimWeaponTypes = [
     "Crossbow"
 ]
 
-const isStandardWeaponType = function(weaponType){
+const isStandardWeaponType = function (weaponType) {
     return standardSkyrimWeaponTypes.includes(weaponType);
 }
 
-function getPrefixFromSettings(weaponType, settings){
+function getPrefixFromSettings(weaponType, settings) {
     let prefix = "";
     let isStandard = isStandardWeaponType(weaponType);
 
@@ -68,23 +68,19 @@ function getPrefixFromSettings(weaponType, settings){
 
 function getWeaponTypeByKeyword(weaponTypeFromJson, item) {
     let weaponType = "";
-    if(weaponTypeFromJson == "Bow"){
+    weaponType = weaponTypeFromJson;
+    if (weaponTypeFromJson == "Bow") {
         let animType = xelib.GetValue(item, 'DNAM\\Animation Type');
         if (animType == "Crossbow") {
             weaponType = "Crossbow";
         }
-    }
-    else {
-        // Stuff from mods that add whole new weapon types with new keywords
-        // Use whatever Prefix is specified directly in overrides JSON here instead of pulling from user settings
-        weaponType = weaponTypeFromJson;
     }
     return weaponType;
 }
 
 
 exports.getWeaponPrefix = function (item, oldName, helpers, settings, locals) {
-    if(xelib.EditorID(item).includes("CCOR_MenuCategory")){
+    if (xelib.EditorID(item).includes("CCOR_MenuCategory")) {
         // TODO: Exclusions from JSON rules/overrides
         return "";
     }
@@ -118,7 +114,7 @@ exports.getWeaponPrefix = function (item, oldName, helpers, settings, locals) {
 
     let rangedTypes = rules.ranged || {};
     let melee = true;
-    if(rangedTypes.includes(weaponType)){
+    if (rangedTypes.includes(weaponType)) {
         melee = false;
     }
 

@@ -7,7 +7,7 @@ const unclassifeidStr = "UNCLASSIFIED";
 const unknownSlotStr = "UNKNOWN_SLOT";
 
 exports.getArmorPrefix = function (item, oldName, helpers, settings) {
-    if(xelib.EditorID(item).includes("CCOR_MenuCategory")){
+    if (xelib.EditorID(item).includes("CCOR_MenuCategory")) {
         // TODO: Exclusions from JSON rules/overrides
         return "";
     }
@@ -163,24 +163,24 @@ exports.getArmorPrefix = function (item, oldName, helpers, settings) {
         return "";
     }
 
-    switch(armorClass){
+    switch (armorClass) {
         case clothingClass:
-            if(!addClassClothing){
+            if (!addClassClothing) {
                 armorClass = "";
             }
             break;
         case jewelryClass:
-            if(!addClassJewelry){
+            if (!addClassJewelry) {
                 armorClass = "";
             }
             break;
         case lightArmorClass:
-            if(!addClassLight){
+            if (!addClassLight) {
                 armorClass = "";
             }
             break;
         case heavyArmorClass:
-            if(!addClassHeavy){
+            if (!addClassHeavy) {
                 armorClass = "";
             }
             break;

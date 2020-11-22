@@ -85,21 +85,21 @@ const merge = (target, source) => {
 }
 
 
-function loadRulesAndOverrides(fh, patcherPath, key, doOverrides){
+function loadRulesAndOverrides(fh, patcherPath, key, doOverrides) {
     let rules = fh.loadJsonFile(`${patcherPath}/rules/${key}.json`) || {};
-    if(doOverrides){
+    if (doOverrides) {
         let overrides = fh.loadJsonFile(`${patcherPath}/overrides/${key}.json`) || {};
         if (overrides) {
             rules = merge(rules, overrides);
         }
     }
-    if(!rules.keywords){
+    if (!rules.keywords) {
         rules.keywords = {};
     }
-    if(!rules.by_name){
+    if (!rules.by_name) {
         rules.by_name = {};
     }
-    if(!rules.by_edid){
+    if (!rules.by_edid) {
         rules.by_edid = {};
     }
     return rules;
