@@ -84,6 +84,11 @@ function getWeaponTypeByKeyword(weaponTypeFromJson, item) {
 
 
 exports.getWeaponPrefix = function (item, oldName, helpers, settings, locals) {
+    if(xelib.EditorID(item).includes("CCOR_MenuCategory")){
+        // TODO: Exclusions from JSON rules/overrides
+        return "";
+    }
+
     let rules = locals.weaponsRules;
     let recordsByName = rules.by_name;
     let prefixByName = recordsByName[oldName];

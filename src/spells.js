@@ -3,21 +3,8 @@ function isEmpty(str) {
 };
 
 
-const masteryLevel1 = "I"; //"Novice"; // 00
-const masteryLevel2 = "II"; //"Apprentice"; // 25
-const masteryLevel3 = "III"; //"Adept"; // 50
-const masteryLevel4 = "IV"; //"Expert"; // 75
-const masteryLevel5 = "V"; //"Master"; // 75
-
-const alterationPrefix = "Alteration";
-const conjurationPrefix = "Conjuration";
-const destructionPrefix = "Destruction";
-const illusionPrefix = "Illusion";
-const restorationPrefix = "Restoration";
-
-
-function getValueFromSpellEffectsByIndex(spellEffects, index, elementKey){
-    if(index > spellEffects.length - 1){
+function getValueFromSpellEffectsByIndex(spellEffects, index, elementKey) {
+    if (index > spellEffects.length - 1) {
         return;
     }
     let mgef = spellEffects[index];
@@ -28,20 +15,6 @@ function getValueFromSpellEffectsByIndex(spellEffects, index, elementKey){
 
     return xelib.GetValue(data, elementKey);
 }
-
-/*
-function getLowestMinLevelFromMGEFs(spellEffects, helpers){
-    let lowestLevel = 1000;
-    for (var i = 0; i < spellEffects.length; i++) {
-        let minLevel = getValueFromSpellEffectsByIndex(spellEffects, i, "Minimum Skill Level");
-        helpers.logMessage("minLevel:" + minLevel);
-        if(minLevel < lowestLevel){
-            lowestLevel = minLevel;
-        }
-    }
-    return lowestLevel;
-}
-*/
 
 
 exports.getSpellPrefix = function (record, oldName, helpers, settings) {
@@ -57,45 +30,47 @@ exports.getSpellPrefix = function (record, oldName, helpers, settings) {
 
     let spellSchool = getValueFromSpellEffectsByIndex(spellEffects, 0, "Magic Skill")
     if (spellSchool == "Alteration") {
-        prefix = alterationPrefix
+        prefix = settings.spells_alterationText;
     }
     else if (spellSchool == "Conjuration") {
-        prefix = conjurationPrefix
+        prefix = settings.spells_conjurationText;
     }
     else if (spellSchool == "Destruction") {
-        prefix = destructionPrefix
+        prefix = settings.spells_destructionText;
     }
     else if (spellSchool == "Illusion") {
-        prefix = illusionPrefix
+        prefix = settings.spells_illusionText;
     }
     else if (spellSchool == "Restoration") {
-        prefix = restorationPrefix
+        prefix = settings.spells_restorationText;
     }
-    if(isEmpty(prefix)){
+    if (isEmpty(prefix)) {
         return "";
     }
 
     let minLevel = getValueFromSpellEffectsByIndex(spellEffects, 0, "Minimum Skill Level")
     if (minLevel <= 0) {
-        masteryLevel = masteryLevel1
+        masteryLevel = settings.spells_noviceText;
     }
     if (minLevel >= 25) {
-        masteryLevel = masteryLevel2
+        masteryLevel = settings.spells_apprenticeText;
     }
     if (minLevel >= 50) {
-        masteryLevel = masteryLevel3
+        masteryLevel = settings.spells_adeptText;
     }
     if (minLevel >= 75) {
-        masteryLevel = masteryLevel4
+        masteryLevel = settings.spells_expertText;
     }
     if (minLevel >= 100) {
-        masteryLevel = masteryLevel5
+        masteryLevel = settings.spells_masterText;
     }
-    if(isEmpty(masteryLevel)){
+    if (isEmpty(masteryLevel)) {
         return "";
     }
 
-    prefix = prefix + " " + masteryLevel;
+    if (settings.spells_addMasteryLevel) {
+        prefix = prefix + " " + masteryLevel;
+    }
 
     return prefix;
 }
@@ -110,34 +85,40 @@ exports.getSpellTomePrefix = function (record, oldName, helpers, settings) {
     let spellName = xelib.GetValue(spellHandle, "FULL");
 
     let startsWithSchoolName = false;
-    let schoolNames = [alterationPrefix, conjurationPrefix, destructionPrefix, illusionPrefix, restorationPrefix];
+    let schoolNames = [
+        settings.spells_alterationText,
+        settings.spells_conjurationText,
+        settings.spells_destructionText,
+        settings.spells_illusionText,
+        settings.spells_restorationText
+    ];
     for (var i = 0; i < schoolNames.length; i++) {
-        if(spellName.startsWith(schoolNames[i])){
+        if (spellName.startsWith(schoolNames[i])) {
             startsWithSchoolName = true;
         }
     }
 
     let spellNameParts = spellName.split(settings.general_compiledSeparator);
-    if(startsWithSchoolName && spellNameParts.length > 1){
+    if (startsWithSchoolName && spellNameParts.length > 1) {
         prefix = spellNameParts[0];
     }
-    else{
+    else {
         // Fall back to using inventory art to get just the school name
         let inventoryArt = xelib.GetValue(record, "INAM");
         if (inventoryArt.includes("Alteration")) {
-            prefix = alterationPrefix
+            prefix = settings.spells_alterationText;
         }
         else if (inventoryArt.includes("Conjuration")) {
-            prefix = conjurationPrefix
+            prefix = settings.spells_conjurationText;
         }
         else if (inventoryArt.includes("Destruction")) {
-            prefix = destructionPrefix
+            prefix = settings.spells_destructionText;
         }
         else if (inventoryArt.includes("Illusion")) {
-            prefix = illusionPrefix
+            prefix = settings.spells_illusionText;
         }
         else if (inventoryArt.includes("Restoration")) {
-            prefix = restorationPrefix
+            prefix = settings.spells_restorationText;
         }
     }
 

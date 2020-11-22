@@ -34,22 +34,22 @@ exports.getMiscPrefix = function (item, oldName, helpers, settings) {
         return "";
     }
 
-    if (oldName.endsWith("Ingot")) {
+    if (settings.misc_ingots && oldName.endsWith("Ingot")) {
         prefix = "Ingot";
     }
-    else if (oldName.endsWith("Ore")) {
+    else if (settings.misc_ore && oldName.endsWith("Ore")) {
         prefix = "Ore";
     }
-    else if (oldName.endsWith("Hide") || oldName.endsWith("Pelt") || xelib.EditorID(item) == "_Camp_CraftingPelt") {
+    else if (settings.misc_hide && (oldName.endsWith("Hide") || oldName.endsWith("Pelt") || xelib.EditorID(item) == "_Camp_CraftingPelt")) {
         prefix = "Hide";
     }
-    else if (xelib.HasKeyword(item, 'VendorItemGem')) {
+    else if (settings.misc_gems && xelib.HasKeyword(item, 'VendorItemGem')) {
         prefix = "Gem";
     }
-    else if (xelib.EditorID(item) == "LeatherDark" || xelib.EditorID(item) == "LeatherRed") {
+    else if (settings.misc_leather && (xelib.EditorID(item) == "LeatherDark" || xelib.EditorID(item) == "LeatherRed")) {
         prefix = "Leather";
     }
-    else if (xelib.HasKeyword(item, 'VendorItemClutter')) {
+    else if (settings.misc_clutter && xelib.HasKeyword(item, 'VendorItemClutter')) {
         prefix = "Clutter";
     }
 

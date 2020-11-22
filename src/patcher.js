@@ -181,7 +181,7 @@ module.exports = function (patcherPath, fh) {
         },
         patch: function (item, helpers, settings, locals) {
             let oldName = xelib.FullName(item).trim()
-            let prefix = armor.getArmorPrefix(item, oldName, helpers);
+            let prefix = armor.getArmorPrefix(item, oldName, helpers, settings);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, prefix, helpers, false, settings);
             }
@@ -285,7 +285,7 @@ module.exports = function (patcherPath, fh) {
             return {
                 signature: 'SLGM',
                 filter: function (record) {
-                    return xelib.HasElement(record, 'FULL');
+                    return settings.soulgems_enable && xelib.HasElement(record, 'FULL');
                 }
             }
         },
@@ -340,7 +340,7 @@ module.exports = function (patcherPath, fh) {
         },
         patch: function (item, helpers, settings, locals) {
             let oldName = xelib.FullName(item).trim()
-            let prefix = misc.getMiscPrefix(item, oldName, helpers);
+            let prefix = misc.getMiscPrefix(item, oldName, helpers, settings);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, prefix, helpers, true, settings);
             }
@@ -353,15 +353,15 @@ module.exports = function (patcherPath, fh) {
                 signature: 'SPEL',
                 filter: function (record) {
                     let spellDataHandle = xelib.GetElement(record, "SPIT");
-                    return xelib.HasElement(record, 'FULL') &&
-                        // xelib.GetValue(spellDataHandle, "Base Cost") > 0 && // Not a good fit for "Sustained Magic"
+                    return settings.spells_enable &&
+                        xelib.HasElement(record, 'FULL') &&
                         xelib.GetValue(spellDataHandle, "Type") == "Spell";
                 }
             }
         },
         patch: function (item, helpers, settings, locals) {
             let oldName = xelib.FullName(item).trim()
-            let prefix = spells.getSpellPrefix(item, oldName, helpers);
+            let prefix = spells.getSpellPrefix(item, oldName, helpers, settings);
             if (!isEmpty(prefix)) {
                 renamer(item, oldName, prefix, helpers, false, settings);
             }

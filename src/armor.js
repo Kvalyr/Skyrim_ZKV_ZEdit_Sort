@@ -2,18 +2,21 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 };
 
-const addClassJewelry = false;
 const groupJewelry = false;
-const jewelryClassInsteadOfSlot = false;
 const unclassifeidStr = "UNCLASSIFIED";
 const unknownSlotStr = "UNKNOWN_SLOT";
 
 exports.getArmorPrefix = function (item, oldName, helpers, settings) {
+    if(xelib.EditorID(item).includes("CCOR_MenuCategory")){
+        // TODO: Exclusions from JSON rules/overrides
+        return "";
+    }
     let addSlot = true;
     let addClass = false;
     let prefix = unclassifeidStr;
     let armorClass = "";
     let armorSlot = "UNKNOWN_SLOT";
+    let jewelryClassInsteadOfSlot = settings.armor_jewelryClassInsteadOfSlot;
     // xelib.HasKeyword(item, keyword)
     // let keywords = getRecords(helpers, locals, 'KYWD');
 
@@ -26,13 +29,25 @@ exports.getArmorPrefix = function (item, oldName, helpers, settings) {
         return "";
     }
 
-    const clothingClass = "C"; //"Clothing";
-    const jewelryClass = "J"; //"Clothing";
-    const lightArmorClass = "L"; //"Clothing";
-    const heavyArmorClass = "H"; //"Clothing";
+    const addClassClothing = settings.armor_addClothingClass;
+    const clothingClass = settings.armor_clothingClassText;
 
-    const headpieceSlotName = "Headpiece"; // "Circlet";
-    const neckpieceSlotName = "Neck"; // "Circlet";
+    const addClassJewelry = settings.armor_addJewelryClass;
+    const jewelryClass = settings.armor_jewelryClassText;
+
+    const addClassLight = settings.armor_addLightClass;
+    const lightArmorClass = settings.armor_lightClassText;
+
+    const addClassHeavy = settings.armor_addHeavyClass;
+    const heavyArmorClass = settings.armor_heavyClassText;
+
+    const headpieceSlotName = settings.armor_headpieceSlotName;
+    const neckpieceSlotName = settings.armor_neckpieceSlotName;
+
+    const accessorySlotName = settings.armor_accessorySlotName;
+    const pouchSlotName = settings.armor_pouchSlotName;
+    const cloakSlotName = settings.armor_cloakSlotName;
+    const shieldSlotName = settings.armor_shieldSlotName;
 
     // TODO: Replace this naive list of conditions on keywords with some kind of intelligent mapping
 
@@ -60,28 +75,28 @@ exports.getArmorPrefix = function (item, oldName, helpers, settings) {
 
     // Pouches, Bandoliers, etc.
     if (xelib.HasKeyword(item, 'WAF_ClothingPouch') || xelib.HasKeyword(item, 'ClothingPouch')) {
-        armorClass = "Pouch";
-        armorSlot = "Pouch";
+        armorClass = pouchSlotName;
+        armorSlot = pouchSlotName;
     }
     // Accessories (Eyepatch, etc.)
     if (xelib.HasKeyword(item, 'WAF_ClothingAccessories') || xelib.HasKeyword(item, 'ClothingAccessories')) {
-        armorClass = "Accessory";
-        armorSlot = "Accessory";
+        armorClass = accessorySlotName;
+        armorSlot = accessorySlotName;
     }
 
     // Shields
     if (xelib.HasKeyword(item, 'ArmorShield')) {
-        prefix = "Shield";
-        armorClass = "Shield";
-        armorSlot = "Shield";
+        prefix = shieldSlotName;
+        armorClass = shieldSlotName;
+        armorSlot = shieldSlotName;
     }
 
     // ==== Slots ====
 
     // Accessories (Eyepatch, etc.)
     if (xelib.HasKeyword(item, 'ClothingCloak') || xelib.HasKeyword(item, 'WAF_ClothingCloak')) {
-        armorClass = "Cloak";
-        armorSlot = "Cloak";
+        armorClass = cloakSlotName;
+        armorSlot = cloakSlotName;
     }
 
     if (xelib.HasKeyword(item, 'ArmorHelmet') || xelib.HasKeyword(item, 'ClothingHead')) {
@@ -133,7 +148,7 @@ exports.getArmorPrefix = function (item, oldName, helpers, settings) {
             if (xelib.HasKeyword(item, 'ClothingNecklace')) {
                 armorSlot = neckpieceSlotName;
             }
-            // Don't add jewelry class "(J)"
+            // Don't add jewelry class
             if (!addClassJewelry) {
                 armorClass = "";
             }
@@ -146,6 +161,29 @@ exports.getArmorPrefix = function (item, oldName, helpers, settings) {
 
     if (armorSlot === unknownSlotStr) {
         return "";
+    }
+
+    switch(armorClass){
+        case clothingClass:
+            if(!addClassClothing){
+                armorClass = "";
+            }
+            break;
+        case jewelryClass:
+            if(!addClassJewelry){
+                armorClass = "";
+            }
+            break;
+        case lightArmorClass:
+            if(!addClassLight){
+                armorClass = "";
+            }
+            break;
+        case heavyArmorClass:
+            if(!addClassHeavy){
+                armorClass = "";
+            }
+            break;
     }
 
     if (isEmpty(armorClass) && !isEmpty(armorSlot)) {
