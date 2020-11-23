@@ -79,22 +79,26 @@ exports.getSpellPrefix = function (record, oldName, helpers, settings) {
 exports.getSpellTomePrefix = function (record, oldName, helpers, settings) {
     let prefix = "";
 
+    // Try to get the spell taught by the tome, and match its prefix
     let data = xelib.GetElement(record, 'DATA');
     let spellHandle = xelib.GetLinksTo(data, 'Teaches');
-    spellHandle = xelib.GetWinningOverride(spellHandle);
-    let spellName = xelib.GetValue(spellHandle, "FULL");
-
     let startsWithSchoolName = false;
-    let schoolNames = [
-        settings.spells_alterationText,
-        settings.spells_conjurationText,
-        settings.spells_destructionText,
-        settings.spells_illusionText,
-        settings.spells_restorationText
-    ];
-    for (var i = 0; i < schoolNames.length; i++) {
-        if (spellName.startsWith(schoolNames[i])) {
-            startsWithSchoolName = true;
+    let spellName = "";
+    if(spellHandle){
+        spellHandle = xelib.GetWinningOverride(spellHandle) || spellHandle;
+        spellName = xelib.GetValue(spellHandle, "FULL");
+
+        let schoolNames = [
+            settings.spells_alterationText,
+            settings.spells_conjurationText,
+            settings.spells_destructionText,
+            settings.spells_illusionText,
+            settings.spells_restorationText
+        ];
+        for (var i = 0; i < schoolNames.length; i++) {
+            if (spellName.startsWith(schoolNames[i])) {
+                startsWithSchoolName = true;
+            }
         }
     }
 
